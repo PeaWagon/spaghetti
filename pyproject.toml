@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "spaghetti"
+version = "0.0.1"
+description = "Django example"
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+dependencies = ["django"]
+
+[project.optional-dependencies]
+dev = ["black", "django-debug-toolbar"]
+
+[project.urls]
+"Homepage" = "https://github.com/PeaWagon/spaghetti"
+
+[tool.setuptools]
+packages = ["spaghetti", "custom_app"]
