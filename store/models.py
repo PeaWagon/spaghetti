@@ -30,5 +30,18 @@ class Customer(models.Model):
     )
     birth_date = models.DateField(null=True)
     membership = models.CharField(
-        max_length=2, choices=MembershipTier.choices, default=MembershipTier.BRONZE
+        max_length=1, choices=MembershipTier.choices, default=MembershipTier.BRONZE
+    )
+
+
+class PaymentStatus(models.TextChoices):
+    PENDING = "P", _("pending")
+    COMPLETE = "C", _("complete")
+    FAILED = "F", _("failed")
+
+
+class Order(models.Model):
+    placed_at = models.DateTimeField(auto_now_add=True)
+    payment_status = models.CharField(
+        max_length=1, choices=PaymentStatus.choices, default=PaymentStatus.PENDING
     )
