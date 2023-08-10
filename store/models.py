@@ -17,6 +17,14 @@ class Promotion(models.Model):
 
 class Collection(models.Model):
     name = models.CharField(max_length=255, unique=True)
+    # if the Product class changes, also update this foreign key relationship
+    # using + as the related_name means the reverse relationship to Product
+    # for collection is not made
+    # the related_name must be specified in any case, since collection is
+    # already an attribute of the Product model (and attributes must be unique)
+    featured_product = models.ForeignKey(
+        "Product", on_delete=models.SET_NULL, null=True, related_name="+"
+    )
 
 
 class Product(models.Model):
