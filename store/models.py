@@ -1,6 +1,18 @@
 from django.db import models
-from django.core.validators import MaxValueValidator
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.utils.translation import gettext_lazy as _
+
+
+class Promotion(models.Model):
+    short_description = models.CharField(max_length=255)
+    description = models.TextField()
+    percent_discount = models.PositiveSmallIntegerField(
+        validators=[
+            MinValueValidator(limit_value=1),
+            MaxValueValidator(limit_value=100),
+        ],
+        null=True,
+    )
 
 
 class Collection(models.Model):
@@ -14,6 +26,7 @@ class Product(models.Model):
     inventory = models.IntegerField()
     last_update = models.DateTimeField(auto_now=True)
     collection = models.ForeignKey(Collection, on_delete=models.SET_NULL)
+    promotions = models.ManyToManyField(Promotion)
 
 
 class MembershipTier(models.TextChoices):
