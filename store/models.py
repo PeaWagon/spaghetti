@@ -87,6 +87,9 @@ class Address(models.Model):
     street = models.CharField(max_length=255)
     city = models.CharField(max_length=255)
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    zip_code = models.PositiveIntegerField(
+        validators=[MinValueValidator(501), MaxValueValidator(999999999)]
+    )
 
 
 class Cart(models.Model):
