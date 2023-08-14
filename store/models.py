@@ -58,6 +58,10 @@ class Customer(models.Model):
         max_length=1, choices=MembershipTier.choices, default=MembershipTier.BRONZE
     )
 
+    class Meta:
+        db_table = "store_customers"
+        indexes = [models.Index(fields=["last_name", "first_name"])]
+
 
 class PaymentStatus(models.TextChoices):
     PENDING = "P", _("pending")
